@@ -53,7 +53,7 @@ ComplementaryFilterROS::ComplementaryFilterROS()
 
     // Register publishers:
     // TODO: Check why ros::names::resolve is need here
-    imu_publisher_ = this->create_publisher<ImuMsg>("imu/data", queue_size);
+    imu_publisher_ = this->create_publisher<ImuMsg>("perse/sensors/imu/data", queue_size);
 
     if (publish_debug_topics_)
     {
@@ -69,7 +69,7 @@ ComplementaryFilterROS::ComplementaryFilterROS()
     }
 
     // Register IMU raw data subscriber.
-    imu_subscriber_.reset(new ImuSubscriber(this, "/imu/data_raw"));
+    imu_subscriber_.reset(new ImuSubscriber(this, "perse/sensors/imu/data_raw"));
 
     // Register magnetic data subscriber.
     if (use_mag_)

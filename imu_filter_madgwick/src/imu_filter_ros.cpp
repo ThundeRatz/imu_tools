@@ -184,7 +184,7 @@ ImuFilterMadgwickRos::ImuFilterMadgwickRos(const rclcpp::NodeOptions &options)
         std::bind(&ImuFilterMadgwickRos::reconfigCallback, this, _1));
 
     // **** register publishers
-    imu_publisher_ = create_publisher<sensor_msgs::msg::Imu>("imu/data", 5);
+    imu_publisher_ = create_publisher<sensor_msgs::msg::Imu>("perse/sensors/imu/data", 5);
     if (publish_debug_topics_)
     {
         rpy_filtered_debug_publisher_ =
@@ -201,7 +201,7 @@ ImuFilterMadgwickRos::ImuFilterMadgwickRos(const rclcpp::NodeOptions &options)
     // connection callback.
     const int queue_size = 5;
     rmw_qos_profile_t qos = rmw_qos_profile_sensor_data;
-    imu_subscriber_.reset(new ImuSubscriber(this, "imu/data_raw", qos));
+    imu_subscriber_.reset(new ImuSubscriber(this, "perse/sensors/imu/data_raw", qos));
 
     if (use_mag_)
     {
@@ -545,10 +545,10 @@ void ImuFilterMadgwickRos::checkTopicsTimerCallback()
     if (use_mag_)
         RCLCPP_WARN_STREAM(
             get_logger(),
-            "Still waiting for data on topics /imu/data_raw and /imu/mag...");
+            "Still waiting for data on topics perse/sensors/imu/data_raw and /imu/mag...");
     else
         RCLCPP_WARN_STREAM(get_logger(),
-                           "Still waiting for data on topic /imu/data_raw...");
+                           "Still waiting for data on topic perse/sensors/imu/data_raw...");
 }
 
 #include "rclcpp_components/register_node_macro.hpp"
